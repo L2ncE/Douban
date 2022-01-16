@@ -7,8 +7,10 @@ import (
 func InitEngine() {
 	engine := gin.Default()
 
-	engine.POST("/register", register) //注册
-	engine.POST("/login", login)       //登陆
+	engine.POST("/register", register)       //注册
+	engine.POST("/login", login)             //登陆
+	engine.POST("/mibao", mibao)             //密保
+	engine.POST("/mibao/question", question) //查询密保问题
 
 	userGroup := engine.Group("/user")
 	{
