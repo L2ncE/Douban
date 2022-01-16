@@ -50,14 +50,20 @@ func Register(user model.User) error {
 	return err
 }
 
-// SelectAnswerByUsername 通过昵称查找答案服务
-//func SelectAnswerByUsername(username string) string {
-//	answer := dao.SelectAnswerByUsername(username)
-//	return answer
-//}
+//SelectAnswerByUsername 通过昵称查找答案服务
+func SelectAnswerByUsername(username string) string {
+	answer := dao.SelectAnswerByUsername(username)
+	return answer
+}
 
 //// SelectIdByUsername 通过昵称查找Id服务
 //func SelectIdByUsername(username string) int {
 //	id := dao.SelectIdByName(username)
 //	return id
 //}
+
+//SelectQuestionByUsername 通过昵称查找问题
+func SelectQuestionByUsername(username string) string {
+	question := dao.SelectQuestionByUsername(username)
+	return question
+}
