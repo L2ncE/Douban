@@ -58,7 +58,7 @@ func login(ctx *gin.Context) {
 		tool.RespInternalError(ctx)
 		return
 	}
-	//密保判断 能用,不过显示有点小问题
+
 	if !flag {
 		tool.RespErrorWithDate(ctx, "密码错误")
 		return
@@ -70,7 +70,7 @@ func login(ctx *gin.Context) {
 		Password: password,
 		StandardClaims: jwt.StandardClaims{
 			NotBefore: time.Now().Unix() - 60,
-			ExpiresAt: time.Now().Unix() + 7200,
+			ExpiresAt: time.Now().Unix() + 6000000,
 			Issuer:    "YuanXinHao",
 		},
 	}
@@ -133,4 +133,40 @@ func register(ctx *gin.Context) {
 		tool.RespErrorWithDate(ctx, "请将信息输入完整")
 		return
 	}
+}
+
+func mibao(ctx *gin.Context) {
+	username := ctx.PostForm("username")
+	answer := ctx.PostForm("answer")
+	newPassword := ctx.PostForm("new_password")
+	if answer == service.SelectAnswerByUsername(username) {
+		l1 := len([]rune(newPassword))
+		if l1 <= 16 && l1 >= 6 { //强制规定密码小于16位并大于6位
+			//修改新密码
+			err := service.ChangePassword(username, newPassword)
+			if err != nil {
+				fmt.Println("change password err: ", err)
+				tool.RespInternalError(ctx)
+				return
+			}
+
+			tool.RespSuccessfulWithDate(ctx, "密码正确,密码修改成功")
+			return
+		} else {
+			tool.RespErrorWithDate(ctx, "密码请在6位到16位之内")
+			return
+		}
+	}
+	tool.RespErrorWithDate(ctx, "答案错误")
+	return
+}
+
+func question(ctx *gin.Context) {
+	username := ctx.PostForm("username")
+	question := service.SelectQuestionByUsername(username)
+	if question == "" {
+		tool.RespErrorWithDate(ctx, "没有此人的密保")
+		return
+	}
+	tool.RespErrorWithDate(ctx, question)
 }
