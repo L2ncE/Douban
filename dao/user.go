@@ -60,3 +60,14 @@ func SelectAnswerByUsername(Name string) string {
 //	dB.QueryRow(sqlStr, Name).Scan(&user.Id)
 //	return user.Id
 //}
+
+// SelectQuestionByUsername 通过用户名来找到密保问题
+func SelectQuestionByUsername(Name string) string {
+	user := model.User{}
+	sqlStr := `select Question from user where name=?;`
+	dB.QueryRow(sqlStr, Name).Scan(&user.Question)
+	if user.Question == "" {
+		return ""
+	}
+	return user.Question
+}
