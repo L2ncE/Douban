@@ -18,8 +18,8 @@ func DeleteTopic(topicId int) error {
 }
 
 // GetTopics 得到话题
-func GetTopics() ([]model.Topic, error) {
-	return dao.SelectTopic()
+func GetTopics(movieId int) ([]model.Topic, error) {
+	return dao.SelectTopic(movieId)
 }
 
 // GetTopicById 通过id得到话题
