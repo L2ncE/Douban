@@ -1,11 +1,13 @@
 package api
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func InitEngine() {
 	engine := gin.Default()
+	engine.Use(cors.Default())
 
 	engine.POST("/register", register)       //注册
 	engine.POST("/login", login)             //登陆
