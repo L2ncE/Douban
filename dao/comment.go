@@ -7,9 +7,14 @@ import (
 
 // InsertComment 插入回复
 func InsertComment(comment model.Comment) error {
-
-	sqlStr := "insert into comment(Name,TopicId,Context,CommentTime)values (?,?,?,?)" + "update topic set commentnum=commentnum+1 where id = ?"
-	_, err := dB.Exec(sqlStr, comment.Name, comment.TopicId, comment.Context, comment.CommentTime, comment.TopicId)
+	sqlStr1 := `update topic set CommentNum=CommentNum+1 where id = ?`
+	_, err := dB.Exec(sqlStr1, comment.TopicId)
+	if err != nil {
+		fmt.Printf("update failed, err:%v\n", err)
+		return err
+	}
+	sqlStr2 := "insert into comment(Name,TopicId,Context,CommentTime)values (?,?,?,?)"
+	_, err = dB.Exec(sqlStr2, comment.Name, comment.TopicId, comment.Context, comment.CommentTime)
 	if err != nil {
 		fmt.Printf("insert failed, err:%v\n", err)
 		return err
