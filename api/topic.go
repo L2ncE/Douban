@@ -47,7 +47,9 @@ func topicDetail(ctx *gin.Context) {
 }
 
 func briefTopics(ctx *gin.Context) {
-	topics, err := service.GetTopics()
+	movieIdString := ctx.Param("movie_id")
+	movieId, _ := strconv.Atoi(movieIdString)
+	topics, err := service.GetTopics(movieId)
 	if err != nil {
 		fmt.Println("get topics err: ", err)
 		tool.RespInternalError(ctx)
