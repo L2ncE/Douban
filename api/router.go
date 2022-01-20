@@ -11,6 +11,7 @@ func InitEngine() {
 	engine.POST("/login", login)             //登陆
 	engine.POST("/mibao", mibao)             //密保
 	engine.POST("/mibao/question", question) //查询密保问题
+	engine.GET("/:movie_id", movieDetail)    //电影页
 
 	userGroup := engine.Group("/user")
 	{
