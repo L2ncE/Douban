@@ -46,9 +46,9 @@ func SelectNameById(topicId int) (string, error) {
 }
 
 // SelectTopic 查找话题
-func SelectTopic() ([]model.Topic, error) {
+func SelectTopic(movieId int) ([]model.Topic, error) {
 	var topics []model.Topic
-	rows, err := dB.Query("SELECT id, MovieId, Name, Context, PostTime, CommentNum, Likes FROM topic")
+	rows, err := dB.Query("SELECT id, MovieId, Name, Context, PostTime, CommentNum, Likes FROM topic where MovieId = ?", movieId)
 	if err != nil {
 		return nil, err
 	}
