@@ -10,9 +10,7 @@ type Movie struct {
 	Type         string
 	Country      string
 	Language     string
-	ReleaseDate  string
 	Length       string
-	Aka          string
 	IMDb         string
 	StarNum      int
 	Score        string
@@ -24,4 +22,5 @@ type Movie struct {
 	HaveWatched  int
 	WantToWatch  int
 	Synopsis     string
+	URL          string
 }
