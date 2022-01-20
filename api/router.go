@@ -21,7 +21,7 @@ func InitEngine() {
 
 	topicGroup := engine.Group("/topic")
 	{
-		topicGroup.GET("/:movie_id", briefTopics) //查看一部电影全部话题概略
+		topicGroup.POST("/", briefTopics)         //查看一部电影全部话题概略
 		topicGroup.GET("/:topic_id", topicDetail) //查看一条话题详细信息和其下属评论
 		{
 			topicGroup.Use(JWTAuth)                         //需要token
