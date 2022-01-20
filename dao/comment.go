@@ -8,8 +8,8 @@ import (
 // InsertComment 插入回复
 func InsertComment(comment model.Comment) error {
 
-	sqlStr := "insert into comment(Name,TopicId,Context,CommentTime)values (?,?,?,?)"
-	_, err := dB.Exec(sqlStr, comment.Name, comment.TopicId, comment.Context, comment.CommentTime)
+	sqlStr := "insert into comment(Name,TopicId,Context,CommentTime)values (?,?,?,?)" + "update topic set commentnum=commentnum+1 where id = ?"
+	_, err := dB.Exec(sqlStr, comment.Name, comment.TopicId, comment.Context, comment.CommentTime, comment.TopicId)
 	if err != nil {
 		fmt.Printf("insert failed, err:%v\n", err)
 		return err
