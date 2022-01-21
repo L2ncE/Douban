@@ -9,3 +9,8 @@ import (
 func GetMovieById(movieId int) (model.Movie, error) {
 	return dao.SelectMovieById(movieId)
 }
+
+// GetMovies 得到电影
+func GetMovies() ([]model.Movie, error) {
+	return dao.SelectMovie()
+}
