@@ -122,11 +122,11 @@ func register(ctx *gin.Context) {
 
 				tool.RespSuccessful(ctx)
 			} else {
-				tool.RespErrorWithDate(ctx, "密码请在16位到6位之内")
+				tool.RespErrorWithDate(ctx, "密码请在6位到16位之内")
 				return
 			}
 		} else {
-			tool.RespErrorWithDate(ctx, "用户名请在8位到1位之内")
+			tool.RespErrorWithDate(ctx, "用户名请在1位到8位之内")
 			return
 		}
 	} else {
