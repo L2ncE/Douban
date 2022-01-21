@@ -14,6 +14,7 @@ func InitEngine() {
 	engine.POST("/mibao", mibao)             //密保
 	engine.POST("/mibao/question", question) //查询密保问题
 	engine.GET("/:movie_id", movieDetail)    //电影页
+	engine.GET("/movie", briefMovies)        //所有电影
 
 	userGroup := engine.Group("/user")
 	{
