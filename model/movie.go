@@ -23,4 +23,5 @@ type Movie struct {
 	WantToWatch  int
 	Synopsis     string
 	URL          string
+	peopleURL    string
 }
