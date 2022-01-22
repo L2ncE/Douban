@@ -12,24 +12,26 @@ func InitEngine() {
 	engine.POST("/login", login)             //登陆
 	engine.POST("/mibao", mibao)             //密保
 	engine.POST("/mibao/question", question) //查询密保问题
-	engine.GET("/:movie_id", movieDetail)    //电影页
-	engine.GET("/movie", briefMovies)        //所有电影
+
+	movieGroup := engine.Group("/movie")
+	{
+		movieGroup.GET("/", briefMovies)          //所有电影
+		movieGroup.GET("/:movie_id", movieDetail) //电影页
+	}
+
 	userGroup := engine.Group("/user")
 	{
-		userGroup.Use(CORS())
 		userGroup.Use(JWTAuth)                      //需要token
 		userGroup.POST("/password", changePassword) //修改密码
 	}
 
 	topicGroup := engine.Group("/topic")
 	{
-		topicGroup.Use(CORS())
-		topicGroup.POST("/movie_id", briefTopics) //查看一部电影全部话题概略
-		topicGroup.GET("/:topic_id", topicDetail) //查看一条话题详细信息和其下属评论
+		topicGroup.POST("/movie/:movie_id", briefTopics) //查看一部电影全部话题概略
+		topicGroup.GET("/:topic_id", topicDetail)        //查看一条话题详细信息和其下属评论
 		{
-			topicGroup.Use(CORS())
 			topicGroup.Use(JWTAuth)                         //需要token
-			topicGroup.POST("/", addTopic)                  //发布新话题
+			topicGroup.POST("/:topic_id", addTopic)         //发布新话题
 			topicGroup.DELETE("/:topic_id", deleteTopic)    //删除话题
 			topicGroup.POST("/:topic_id/likes", topicLikes) //给话题点赞
 		}
@@ -37,18 +39,27 @@ func InitEngine() {
 
 	commentGroup := engine.Group("/comment")
 	{
-		commentGroup.Use(CORS())
-		commentGroup.POST("/anonymity", addCommentAnonymity) //匿名评论
+		commentGroup.POST("/:comment_id/anonymity", addCommentAnonymity) //匿名评论
 		{
-			commentGroup.Use(CORS())
 			commentGroup.Use(JWTAuth)                             //需要token
-			commentGroup.POST("/", addComment)                    //发送评论
+			commentGroup.POST("/:comment_id", addComment)         //发送评论
 			commentGroup.DELETE("/:comment_id", deleteComment)    //删除评论
 			commentGroup.POST("/:comment_id/likes", commentLikes) //给评论点赞
 		}
 	}
-	err := engine.Run()
-	if err != nil {
-		return
+
+	shortCommentGroup := engine.Group("/shortcomment")
+	{
+		shortCommentGroup.POST("/movie/:movie_id", briefShortComment) //查看一部电影全部短评
+		{
+			shortCommentGroup.Use(JWTAuth)                                //需要token
+			shortCommentGroup.POST("/:shortcomment_id", addTopic)         //发布新短评
+			shortCommentGroup.DELETE("/:shortcomment_id", deleteTopic)    //删除短评
+			shortCommentGroup.POST("/:shortcomment_id/likes", topicLikes) //给短评点赞
+		}
+		err := engine.Run()
+		if err != nil {
+			return
+		}
 	}
 }
