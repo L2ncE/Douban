@@ -39,7 +39,7 @@ func InitEngine() {
 
 	commentGroup := engine.Group("/comment")
 	{
-		commentGroup.POST("/anonymity/:comment_id", addCommentAnonymity) //匿名评论
+		commentGroup.POST("/anonymity/:topic_id", addCommentAnonymity) //匿名评论
 		{
 			commentGroup.Use(JWTAuth)                             //需要token
 			commentGroup.POST("/:topic_id", addComment)           //发送评论
