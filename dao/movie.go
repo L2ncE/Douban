@@ -6,12 +6,12 @@ import "douban/model"
 func SelectMovieById(movieId int) (model.Movie, error) {
 	var movie model.Movie
 
-	row := dB.QueryRow("SELECT id, name, year, director, screenwriter, starring, type, country, language, length, imdb, starnum, score, onestar, twostar, threestar, fourstar, fivestar, havewatched, wanttowatch, synopsis, URL, peopleURL FROM movie WHERE id = ? ", movieId)
+	row := dB.QueryRow("SELECT id, name, year, director, screenwriter, starring, type, country, language, length, imdb, starnum, score, star, havewatched, wanttowatch, synopsis, URL, peopleURL FROM movie WHERE id = ? ", movieId)
 	if row.Err() != nil {
 		return movie, row.Err()
 	}
 
-	err := row.Scan(&movie.Id, &movie.Name, &movie.Year, &movie.Director, &movie.Screenwriter, &movie.Starring, &movie.Type, &movie.Country, &movie.Language, &movie.Length, &movie.IMDb, &movie.StarNum, &movie.Score, &movie.OneStar, &movie.TwoStar, &movie.ThreeStar, &movie.FourStar, &movie.FiveStar, &movie.HaveWatched, &movie.WantToWatch, &movie.Synopsis, &movie.URL, &movie.PeopleURL)
+	err := row.Scan(&movie.Id, &movie.Name, &movie.Year, &movie.Director, &movie.Screenwriter, &movie.Starring, &movie.Type, &movie.Country, &movie.Language, &movie.Length, &movie.IMDb, &movie.StarNum, &movie.Score, &movie.Star, &movie.HaveWatched, &movie.WantToWatch, &movie.Synopsis, &movie.URL, &movie.PeopleURL)
 	if err != nil {
 		return movie, err
 	}
@@ -19,19 +19,65 @@ func SelectMovieById(movieId int) (model.Movie, error) {
 	return movie, nil
 }
 
-// SelectMovie 查找电影
-func SelectMovie() ([]model.Movie, error) {
-	var movies []model.Movie
-	rows, err := dB.Query("SELECT id, name, year, director, screenwriter, starring, type, country, language, length, imdb, starnum, score, onestar, twostar, threestar, fourstar, fivestar, havewatched, wanttowatch, synopsis, URL, peopleURL FROM movie")
+// SelectMovie1 查找主页1
+func SelectMovie1() ([]model.MovieBrief, error) {
+	var movies []model.MovieBrief
+	rows, err := dB.Query("SELECT id, name, URL FROM movie WHERE Id BETWEEN 1 AND 35")
 	if err != nil {
 		return nil, err
 	}
 
 	defer rows.Close()
 	for rows.Next() {
-		var movie model.Movie
+		var movie model.MovieBrief
 
-		err = rows.Scan(&movie.Id, &movie.Name, &movie.Year, &movie.Director, &movie.Screenwriter, &movie.Starring, &movie.Type, &movie.Country, &movie.Language, &movie.Length, &movie.IMDb, &movie.StarNum, &movie.Score, &movie.OneStar, &movie.TwoStar, &movie.ThreeStar, &movie.FourStar, &movie.FiveStar, &movie.HaveWatched, &movie.WantToWatch, &movie.Synopsis, &movie.URL, &movie.PeopleURL)
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.URL)
+		if err != nil {
+			return nil, err
+		}
+
+		movies = append(movies, movie)
+	}
+
+	return movies, nil
+}
+
+// SelectMovie2 查找主页2
+func SelectMovie2() ([]model.MovieBrief, error) {
+	var movies []model.MovieBrief
+	rows, err := dB.Query("SELECT id, name, URL FROM movie WHERE Id BETWEEN 36 AND 65")
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var movie model.MovieBrief
+
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.URL)
+		if err != nil {
+			return nil, err
+		}
+
+		movies = append(movies, movie)
+	}
+
+	return movies, nil
+}
+
+// SelectMovie3 查找主页3
+func SelectMovie3() ([]model.MovieBrief, error) {
+	var movies []model.MovieBrief
+	rows, err := dB.Query("SELECT id, name, URL FROM movie WHERE Id BETWEEN 66 AND 95")
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var movie model.MovieBrief
+
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.URL)
 		if err != nil {
 			return nil, err
 		}
