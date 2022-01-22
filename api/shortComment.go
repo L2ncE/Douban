@@ -54,7 +54,7 @@ func addShortComment(ctx *gin.Context) {
 
 // deleteShortComment 删除短评
 func deleteShortComment(ctx *gin.Context) {
-	shortCommentIdString := ctx.Param("shortComment_id")
+	shortCommentIdString := ctx.Param("shortcomment_id")
 	shortCommentId, err := strconv.Atoi(shortCommentIdString)
 	shortCommentNameString, _ := ctx.Get("username")
 	nameString, _ := service.GetNameBySCId(shortCommentId)
@@ -62,7 +62,7 @@ func deleteShortComment(ctx *gin.Context) {
 	if shortCommentNameString == nameString {
 		if err != nil {
 			fmt.Println("shortComment id string to int err: ", err)
-			tool.RespErrorWithDate(ctx, "shortComment_id格式有误")
+			tool.RespErrorWithDate(ctx, "shortcomment_id格式有误")
 			return
 		}
 		err = service.DeleteShortComment(shortCommentId)
@@ -79,11 +79,11 @@ func deleteShortComment(ctx *gin.Context) {
 
 // shortCommentLikes 话题点赞
 func shortCommentLikes(ctx *gin.Context) {
-	shortCommentIdString := ctx.Param("shortComment_id")
+	shortCommentIdString := ctx.Param("shortcomment_id")
 	shortCommentId, err := strconv.Atoi(shortCommentIdString)
 	if err != nil {
 		fmt.Println("shortComment id string to int err: ", err)
-		tool.RespErrorWithDate(ctx, "shortComment_id格式有误")
+		tool.RespErrorWithDate(ctx, "shortcomment_id格式有误")
 		return
 	}
 	err = service.ShortCommentLikes(shortCommentId)
