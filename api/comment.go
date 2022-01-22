@@ -16,7 +16,7 @@ func addComment(ctx *gin.Context) {
 	Name := iUsername.(string)
 
 	context := ctx.PostForm("context")
-	topicIdString := ctx.PostForm("topic_id") //评论的话题id
+	topicIdString := ctx.Param("topic_id") //评论的话题id
 	topicId, err := strconv.Atoi(topicIdString)
 	if err != nil {
 		fmt.Println("topic id string to int err: ", err)
@@ -44,7 +44,7 @@ func addComment(ctx *gin.Context) {
 func addCommentAnonymity(ctx *gin.Context) {
 	Name := "Anonymity" //匿名评论用户名统一为Anonymity
 	context := ctx.PostForm("context")
-	topicIdString := ctx.PostForm("topic_id")
+	topicIdString := ctx.Param("topic_id")
 	topicId, err := strconv.Atoi(topicIdString)
 	if err != nil {
 		fmt.Println("topic id string to int err: ", err)
