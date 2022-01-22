@@ -29,8 +29,30 @@ func movieDetail(ctx *gin.Context) {
 	tool.RespSuccessfulWithDate(ctx, movie)
 }
 
-func briefMovies(ctx *gin.Context) {
-	movies, err := service.GetMovies()
+func briefMovies1(ctx *gin.Context) {
+	movies, err := service.GetMovies1()
+	if err != nil {
+		fmt.Println("get movies err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, movies)
+}
+
+func briefMovies2(ctx *gin.Context) {
+	movies, err := service.GetMovies2()
+	if err != nil {
+		fmt.Println("get movies err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, movies)
+}
+
+func briefMovies3(ctx *gin.Context) {
+	movies, err := service.GetMovies3()
 	if err != nil {
 		fmt.Println("get movies err: ", err)
 		tool.RespInternalError(ctx)
