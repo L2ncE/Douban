@@ -14,14 +14,16 @@ type Movie struct {
 	IMDb         string
 	StarNum      int
 	Score        string
-	OneStar      string
-	TwoStar      string
-	ThreeStar    string
-	FourStar     string
-	FiveStar     string
+	Star         string
 	HaveWatched  int
 	WantToWatch  int
 	Synopsis     string
 	URL          string
 	PeopleURL    string
+}
+
+type MovieBrief struct {
+	Id   int
+	Name string
+	URL  string
 }
