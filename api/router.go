@@ -31,7 +31,7 @@ func InitEngine() {
 		topicGroup.GET("/:topic_id", topicDetail)        //查看一条话题详细信息和其下属评论
 		{
 			topicGroup.Use(JWTAuth)                         //需要token
-			topicGroup.POST("/:topic_id", addTopic)         //发布新话题
+			topicGroup.POST("/:movie_id", addTopic)         //发布新话题
 			topicGroup.DELETE("/:topic_id", deleteTopic)    //删除话题
 			topicGroup.POST("/:topic_id/likes", topicLikes) //给话题点赞
 		}
@@ -42,7 +42,7 @@ func InitEngine() {
 		commentGroup.POST("/:comment_id/anonymity", addCommentAnonymity) //匿名评论
 		{
 			commentGroup.Use(JWTAuth)                             //需要token
-			commentGroup.POST("/:comment_id", addComment)         //发送评论
+			commentGroup.POST("/:topic_id", addComment)           //发送评论
 			commentGroup.DELETE("/:comment_id", deleteComment)    //删除评论
 			commentGroup.POST("/:comment_id/likes", commentLikes) //给评论点赞
 		}
@@ -53,7 +53,7 @@ func InitEngine() {
 		shortCommentGroup.POST("/movie/:movie_id", briefShortComment) //查看一部电影全部短评
 		{
 			shortCommentGroup.Use(JWTAuth)                                       //需要token
-			shortCommentGroup.POST("/:shortcomment_id", addShortComment)         //发布新短评
+			shortCommentGroup.POST("/:movie_id", addShortComment)                //发布新短评
 			shortCommentGroup.DELETE("/:shortcomment_id", deleteShortComment)    //删除短评
 			shortCommentGroup.POST("/:shortcomment_id/likes", shortCommentLikes) //给短评点赞
 		}
