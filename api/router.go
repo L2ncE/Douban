@@ -13,19 +13,21 @@ func InitEngine() {
 	engine.POST("/mibao", mibao)             //密保
 	engine.POST("/mibao/question", question) //查询密保问题
 
-	movieGroup := engine.Group("/movie")
+	movieGroup := engine.Group("/movie", CORS())
 	{
-		movieGroup.GET("/", briefMovies)          //所有电影
+		movieGroup.GET("/brief", briefMovies)     //所有电影
 		movieGroup.GET("/:movie_id", movieDetail) //电影页
 	}
 
 	userGroup := engine.Group("/user")
+	userGroup.Use(CORS())
 	{
 		userGroup.Use(JWTAuth)                      //需要token
 		userGroup.POST("/password", changePassword) //修改密码
 	}
 
 	topicGroup := engine.Group("/topic")
+	topicGroup.Use(CORS())
 	{
 		topicGroup.GET("/movie/:movie_id", briefTopics) //查看一部电影全部话题概略
 		topicGroup.GET("/:topic_id", topicDetail)       //查看一条话题详细信息和其下属评论
@@ -38,6 +40,7 @@ func InitEngine() {
 	}
 
 	commentGroup := engine.Group("/comment")
+	commentGroup.Use(CORS())
 	{
 		commentGroup.POST("/anonymity/:topic_id", addCommentAnonymity) //匿名评论
 		{
@@ -49,6 +52,7 @@ func InitEngine() {
 	}
 
 	shortCommentGroup := engine.Group("/shortcomment")
+	shortCommentGroup.Use(CORS())
 	{
 		shortCommentGroup.GET("/movie/:movie_id", briefShortComment) //查看一部电影全部短评
 		{
