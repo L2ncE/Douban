@@ -27,13 +27,13 @@ func InitEngine() {
 
 	topicGroup := engine.Group("/topic")
 	{
-		topicGroup.POST("/movie/:movie_id", briefTopics) //查看一部电影全部话题概略
-		topicGroup.GET("/:topic_id", topicDetail)        //查看一条话题详细信息和其下属评论
+		topicGroup.GET("/movie/:movie_id", briefTopics) //查看一部电影全部话题概略
+		topicGroup.GET("/:topic_id", topicDetail)       //查看一条话题详细信息和其下属评论
 		{
-			topicGroup.Use(JWTAuth)                         //需要token
-			topicGroup.POST("/:movie_id", addTopic)         //发布新话题
-			topicGroup.DELETE("/:topic_id", deleteTopic)    //删除话题
-			topicGroup.POST("/likes/:topic_id", topicLikes) //给话题点赞
+			topicGroup.Use(JWTAuth)                        //需要token
+			topicGroup.POST("/:movie_id", addTopic)        //发布新话题
+			topicGroup.DELETE("/:topic_id", deleteTopic)   //删除话题
+			topicGroup.GET("/likes/:topic_id", topicLikes) //给话题点赞
 		}
 	}
 
@@ -41,21 +41,21 @@ func InitEngine() {
 	{
 		commentGroup.POST("/anonymity/:topic_id", addCommentAnonymity) //匿名评论
 		{
-			commentGroup.Use(JWTAuth)                             //需要token
-			commentGroup.POST("/:topic_id", addComment)           //发送评论
-			commentGroup.DELETE("/:comment_id", deleteComment)    //删除评论
-			commentGroup.POST("/likes/:comment_id", commentLikes) //给评论点赞
+			commentGroup.Use(JWTAuth)                            //需要token
+			commentGroup.POST("/:topic_id", addComment)          //发送评论
+			commentGroup.DELETE("/:comment_id", deleteComment)   //删除评论
+			commentGroup.GET("/likes/:comment_id", commentLikes) //给评论点赞
 		}
 	}
 
 	shortCommentGroup := engine.Group("/shortcomment")
 	{
-		shortCommentGroup.POST("/movie/:movie_id", briefShortComment) //查看一部电影全部短评
+		shortCommentGroup.GET("/movie/:movie_id", briefShortComment) //查看一部电影全部短评
 		{
-			shortCommentGroup.Use(JWTAuth)                                       //需要token
-			shortCommentGroup.POST("/:movie_id", addShortComment)                //发布新短评
-			shortCommentGroup.DELETE("/:shortcomment_id", deleteShortComment)    //删除短评
-			shortCommentGroup.POST("/likes/:shortcomment_id", shortCommentLikes) //给短评点赞
+			shortCommentGroup.Use(JWTAuth)                                      //需要token
+			shortCommentGroup.POST("/:movie_id", addShortComment)               //发布新短评
+			shortCommentGroup.DELETE("/:shortcomment_id", deleteShortComment)   //删除短评
+			shortCommentGroup.GET("/likes/:shortcomment_id", shortCommentLikes) //给短评点赞
 		}
 		err := engine.Run()
 		if err != nil {
