@@ -12,10 +12,12 @@ func InitEngine() {
 	engine.POST("/login", login)             //登陆
 	engine.POST("/mibao", mibao)             //密保
 	engine.POST("/mibao/question", question) //查询密保问题
+	engine.GET("/brief1", briefMovies1)
+	engine.GET("/brief2", briefMovies2)
+	engine.GET("/brief3", briefMovies3)
 
-	movieGroup := engine.Group("/movie", CORS())
+	movieGroup := engine.Group("/movie")
 	{
-		movieGroup.GET("/brief", briefMovies)     //所有电影
 		movieGroup.GET("/:movie_id", movieDetail) //电影页
 	}
 
