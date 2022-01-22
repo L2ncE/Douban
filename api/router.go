@@ -52,10 +52,10 @@ func InitEngine() {
 	{
 		shortCommentGroup.POST("/movie/:movie_id", briefShortComment) //查看一部电影全部短评
 		{
-			shortCommentGroup.Use(JWTAuth)                                //需要token
-			shortCommentGroup.POST("/:shortcomment_id", addTopic)         //发布新短评
-			shortCommentGroup.DELETE("/:shortcomment_id", deleteTopic)    //删除短评
-			shortCommentGroup.POST("/:shortcomment_id/likes", topicLikes) //给短评点赞
+			shortCommentGroup.Use(JWTAuth)                                       //需要token
+			shortCommentGroup.POST("/:shortcomment_id", addShortComment)         //发布新短评
+			shortCommentGroup.DELETE("/:shortcomment_id", deleteShortComment)    //删除短评
+			shortCommentGroup.POST("/:shortcomment_id/likes", shortCommentLikes) //给短评点赞
 		}
 		err := engine.Run()
 		if err != nil {
