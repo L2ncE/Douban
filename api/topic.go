@@ -47,7 +47,7 @@ func topicDetail(ctx *gin.Context) {
 }
 
 func briefTopics(ctx *gin.Context) {
-	movieIdString := ctx.PostForm("movie_id")
+	movieIdString := ctx.Param("movie_id")
 	movieId, _ := strconv.Atoi(movieIdString)
 	topics, err := service.GetTopics(movieId)
 	if err != nil {
@@ -63,7 +63,7 @@ func briefTopics(ctx *gin.Context) {
 func addTopic(ctx *gin.Context) {
 	iUsername, _ := ctx.Get("username") //得到用户名
 	name := iUsername.(string)
-	movieIdString := ctx.PostForm("movie_id")
+	movieIdString := ctx.Param("movie_id")
 	movieId, err := strconv.Atoi(movieIdString)
 	context := ctx.PostForm("context")
 
