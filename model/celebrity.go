@@ -5,6 +5,7 @@ type Celebrity struct {
 	Name     string
 	Info     string
 	Synopsis string
+	URL      string
 	URLInfo1 string
 	URLInfo2 string
 	URLInfo3 string
