@@ -17,8 +17,15 @@ func InitEngine() {
 	engine.GET("/brief3", briefMovies3)
 
 	movieGroup := engine.Group("/movie")
+	movieGroup.Use(CORS())
 	{
 		movieGroup.GET("/:movie_id", movieDetail) //电影页
+	}
+
+	celebrityGroup := engine.Group("/celebrity")
+	celebrityGroup.Use(CORS())
+	{
+		celebrityGroup.GET("/:celebrity_id", celebrityDetail) //影人页
 	}
 
 	userGroup := engine.Group("/user")
