@@ -63,9 +63,34 @@ func InitEngine() {
 			shortCommentGroup.DELETE("/:shortcomment_id", deleteShortComment)   //删除短评
 			shortCommentGroup.GET("/likes/:shortcomment_id", shortCommentLikes) //给短评点赞
 		}
-		err := engine.Run()
-		if err != nil {
-			return
+	}
+
+	filmCommentGroup := engine.Group("/filmcomment")
+	filmCommentGroup.Use(CORS())
+	{
+		filmCommentGroup.GET("/movie/:movie_id", briefFilmComments) //查看一部电影全部影评概略
+		filmCommentGroup.GET("/:filmcomment_id", filmCommentDetail) //查看一条影评详细信息和其下属评论
+		{
+			filmCommentGroup.Use(JWTAuth)                                    //需要token
+			filmCommentGroup.POST("/:movie_id", addFilmComment)              //发布新影评
+			filmCommentGroup.DELETE("/:filmcomment_id", deleteFilmComment)   //删除影评
+			filmCommentGroup.GET("/likes/:filmcomment_id", filmCommentLikes) //给影评点赞
 		}
+	}
+
+	filmCommentReplyGroup := engine.Group("/filmcomment_reply")
+	filmCommentReplyGroup.Use(CORS())
+	{
+		filmCommentReplyGroup.POST("/anonymity/:filmcomment_id", addFilmCommentReplyAnonymity) //匿名评论
+		{
+			filmCommentReplyGroup.Use(JWTAuth)                                             //需要token
+			filmCommentReplyGroup.POST("/:filmcomment_id", addFilmCommentReply)            //发送评论
+			filmCommentReplyGroup.DELETE("/:filmcomment_reply_id", deleteFilmCommentReply) //删除评论
+		}
+	}
+
+	err := engine.Run()
+	if err != nil {
+		return
 	}
 }
