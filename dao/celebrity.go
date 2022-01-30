@@ -6,12 +6,12 @@ import "douban/model"
 func SelectCelebrityById(Id int) (model.Celebrity, error) {
 	var celebrity model.Celebrity
 
-	row := dB.QueryRow("SELECT id, info, synopsis, urlinfo1, urlinfo2, urlinfo3, award, name, url, nameinfo1, nameinfo2, nameinfo3, yearinfo FROM celebrity WHERE id = ? ", Id)
+	row := dB.QueryRow("SELECT id, name, info, synopsis, url, award, urlinfo1, urlinfo2, urlinfo3, nameinfo1, nameinfo2, nameinfo3, yearinfo FROM celebrity WHERE id = ? ", Id)
 	if row.Err() != nil {
 		return celebrity, row.Err()
 	}
 
-	err := row.Scan(&celebrity.Id, &celebrity.Name, &celebrity.Info, &celebrity.Synopsis, &celebrity.URL, &celebrity.URLInfo1, &celebrity.URLInfo2, &celebrity.URLInfo3, &celebrity.Award, &celebrity.NameInfo1, &celebrity.NameInfo2, &celebrity.NameInfo3, &celebrity.YearInfo)
+	err := row.Scan(&celebrity.Id, &celebrity.Name, &celebrity.Info, &celebrity.Synopsis, &celebrity.URL, &celebrity.Award, &celebrity.URLInfo1, &celebrity.URLInfo2, &celebrity.URLInfo3, &celebrity.NameInfo1, &celebrity.NameInfo2, &celebrity.NameInfo3, &celebrity.YearInfo)
 	if err != nil {
 		return celebrity, err
 	}
