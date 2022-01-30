@@ -20,6 +20,7 @@ type Movie struct {
 	Synopsis     string
 	URL          string
 	PeopleURL    string
+	NameInfo     string
 }
 
 type MovieBrief struct {
