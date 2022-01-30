@@ -6,12 +6,12 @@ import "douban/model"
 func SelectMovieById(movieId int) (model.Movie, error) {
 	var movie model.Movie
 
-	row := dB.QueryRow("SELECT id, name, year, director, screenwriter, starring, type, country, language, length, imdb, starnum, score, star, havewatched, wanttowatch, synopsis, URL, peopleURL, NameInfo FROM movie WHERE id = ? ", movieId)
+	row := dB.QueryRow("SELECT id, name, year, director, screenwriter, starring, type, country, language, length, imdb, starnum, score, star, havewatched, wanttowatch, synopsis, URL, peopleURL, NameInfo, CoverInfo FROM movie WHERE id = ? ", movieId)
 	if row.Err() != nil {
 		return movie, row.Err()
 	}
 
-	err := row.Scan(&movie.Id, &movie.Name, &movie.Year, &movie.Director, &movie.Screenwriter, &movie.Starring, &movie.Type, &movie.Country, &movie.Language, &movie.Length, &movie.IMDb, &movie.StarNum, &movie.Score, &movie.Star, &movie.HaveWatched, &movie.WantToWatch, &movie.Synopsis, &movie.URL, &movie.PeopleURL, &movie.NameInfo)
+	err := row.Scan(&movie.Id, &movie.Name, &movie.Year, &movie.Director, &movie.Screenwriter, &movie.Starring, &movie.Type, &movie.Country, &movie.Language, &movie.Length, &movie.IMDb, &movie.StarNum, &movie.Score, &movie.Star, &movie.HaveWatched, &movie.WantToWatch, &movie.Synopsis, &movie.URL, &movie.PeopleURL, &movie.NameInfo, &movie.CoverInfo)
 	if err != nil {
 		return movie, err
 	}
