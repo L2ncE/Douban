@@ -82,3 +82,25 @@ func UpdateSI(Name string, newSelfIntroduction string) error {
 	}
 	return err
 }
+
+func SelectUser(username string) ([]model.User2, error) {
+	var users []model.User2
+	rows, err := dB.Query("SELECT id, Name, SelfIntroduction FROM user WHERE Name = ?", username)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var user model.User2
+
+		err = rows.Scan(&user.Id, &user.Name, &user.SelfIntroduction)
+		if err != nil {
+			return nil, err
+		}
+
+		users = append(users, user)
+	}
+
+	return users, nil
+}
