@@ -22,6 +22,7 @@ type Movie struct {
 	PeopleURL    string
 	NameInfo     string
 	CoverInfo    string
+	MovieURL     string
 }
 
 type MovieBrief struct {
