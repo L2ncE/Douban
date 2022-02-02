@@ -19,10 +19,10 @@ type Movie struct {
 	WantToWatch  int
 	Synopsis     string
 	URL          string
+	MovieURL     string
 	PeopleURL    string
 	NameInfo     string
 	CoverInfo    string
-	MovieURL     string
 }
 
 type MovieBrief struct {
