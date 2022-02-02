@@ -128,3 +128,14 @@ func filmCommentLikes(ctx *gin.Context) {
 
 	tool.RespSuccessful(ctx)
 }
+
+func mostPopularFC(ctx *gin.Context) {
+	MPFCs, err := service.GetMostPopular()
+	if err != nil {
+		fmt.Println("get MPFC err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, MPFCs)
+}
