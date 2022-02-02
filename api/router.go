@@ -15,6 +15,7 @@ func InitEngine() {
 	engine.GET("/brief1", briefMovies1)
 	engine.GET("/brief2", briefMovies2)
 	engine.GET("/brief3", briefMovies3)
+	engine.GET("/mostpopular", mostPopularFC)
 
 	movieGroup := engine.Group("/movie")
 	movieGroup.Use(CORS())
