@@ -170,3 +170,24 @@ func question(ctx *gin.Context) {
 	}
 	tool.RespErrorWithDate(ctx, question)
 }
+
+func changeSI(ctx *gin.Context) {
+	newSI := ctx.PostForm("new_introduction")
+	iUsername, _ := ctx.Get("username")
+	l1 := len([]rune(newSI))
+	if l1 <= 255 && l1 >= 1 { //强制规定密码小于255位并大于1位
+		username := iUsername.(string)
+
+		err := service.ChangeSI(username, newSI)
+		if err != nil {
+			fmt.Println("change introduction err: ", err)
+			tool.RespInternalError(ctx)
+			return
+		}
+
+		tool.RespSuccessful(ctx)
+	} else {
+		tool.RespErrorWithDate(ctx, "自我介绍请在1位到255位之间")
+		return
+	}
+}
