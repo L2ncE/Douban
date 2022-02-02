@@ -11,9 +11,18 @@ type FilmComment struct {
 	CommentNum int       `json:"comment_num"`
 	StarNum    int       `json:"star_num"`
 	Likes      int       `json:"likes"`
+	URL        string    `json:"URL"`
 }
 
 type FilmCommentDetail struct {
 	FilmComment
 	FilmCommentReplys []FilmCommentReply
+}
+
+type MostPopularFC struct {
+	Id      int
+	Name    string
+	Context string
+	StarNum string
+	URL     string
 }
