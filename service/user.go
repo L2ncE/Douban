@@ -67,3 +67,9 @@ func SelectQuestionByUsername(username string) string {
 	question := dao.SelectQuestionByUsername(username)
 	return question
 }
+
+// ChangeSI 修改自我介绍
+func ChangeSI(username, newSI string) error {
+	err := dao.UpdateSI(username, newSI)
+	return err
+}
