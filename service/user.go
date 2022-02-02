@@ -73,3 +73,8 @@ func ChangeSI(username, newSI string) error {
 	err := dao.UpdateSI(username, newSI)
 	return err
 }
+
+// GetUser 得到用户页
+func GetUser(username string) ([]model.User2, error) {
+	return dao.SelectUser(username)
+}
