@@ -92,7 +92,7 @@ func FilmCommentLikes(id int) error {
 
 func SelectMPFC() ([]model.MostPopularFC, error) {
 	var MPFCs []model.MostPopularFC
-	rows, err := dB.Query("SELECT id, Name, Context, StarNum, URL FROM filmComment WHERE Id in (2,14,25,36,47)")
+	rows, err := dB.Query("SELECT id, Name, Context, StarNum, URL, MovieName FROM filmComment WHERE Id in (2,14,25,36,47)")
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +101,7 @@ func SelectMPFC() ([]model.MostPopularFC, error) {
 	for rows.Next() {
 		var MPFC model.MostPopularFC
 
-		err = rows.Scan(&MPFC.Id, &MPFC.Name, &MPFC.Context, &MPFC.StarNum, &MPFC.URL)
+		err = rows.Scan(&MPFC.Id, &MPFC.Name, &MPFC.Context, &MPFC.StarNum, &MPFC.URL, &MPFC.MovieName)
 		if err != nil {
 			return nil, err
 		}
