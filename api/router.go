@@ -20,7 +20,7 @@ func InitEngine() {
 	movieGroup := engine.Group("/movie")
 	movieGroup.Use(CORS())
 	{
-		movieGroup.GET("/movie", movieDetail) //电影页
+		movieGroup.GET("/:movie_id", movieDetail) //电影页
 	}
 
 	celebrityGroup := engine.Group("/celebrity")
