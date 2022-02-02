@@ -191,3 +191,16 @@ func changeSI(ctx *gin.Context) {
 		return
 	}
 }
+
+func user(ctx *gin.Context) {
+	iUsername, _ := ctx.Get("username")
+	username := iUsername.(string)
+	user, err := service.GetUser(username)
+	if err != nil {
+		fmt.Println("get user err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, user)
+}
