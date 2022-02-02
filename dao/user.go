@@ -71,3 +71,14 @@ func SelectQuestionByUsername(Name string) string {
 	}
 	return user.Question
 }
+
+// UpdateSI 更新自我介绍
+func UpdateSI(Name string, newSelfIntroduction string) error {
+	sqlStr := `update user set SelfIntroduction=? where Name = ?`
+	_, err := dB.Exec(sqlStr, newSelfIntroduction, Name)
+	if err != nil {
+		fmt.Printf("update failed, err:%v\n", err)
+		return err
+	}
+	return err
+}
