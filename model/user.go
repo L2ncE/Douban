@@ -8,3 +8,9 @@ type User struct {
 	Answer           string
 	SelfIntroduction string
 }
+
+type User2 struct {
+	Id               int
+	Name             string
+	SelfIntroduction string
+}
