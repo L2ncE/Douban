@@ -26,3 +26,14 @@ type MostPopularFC struct {
 	URL       string
 	MovieName string
 }
+
+type Personal struct {
+	Id         int
+	MovieName  string
+	Name       string
+	Context    string
+	StarNum    string
+	Likes      int
+	CommentNum int
+	PostTime   time.Time
+}
