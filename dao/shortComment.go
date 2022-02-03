@@ -11,22 +11,22 @@ func InsertShortComment(shortComment model.ShortComment) error {
 	return err
 }
 
-// SelectShortCommentById 通过id来搜索短评
-func SelectShortCommentById(shortCommentId int) (model.ShortComment, error) {
-	var shortComment model.ShortComment
-
-	row := dB.QueryRow("SELECT id, MovieId, Name, Status, StarNum, CommentTime, Likes, Context FROM shortComment WHERE id = ? ", shortCommentId)
-	if row.Err() != nil {
-		return shortComment, row.Err()
-	}
-
-	err := row.Scan(&shortComment.Id, &shortComment.MovieId, &shortComment.Name, &shortComment.Status, &shortComment.StarNum, &shortComment.CommentTime, &shortComment.Likes, &shortComment.Context)
-	if err != nil {
-		return shortComment, err
-	}
-
-	return shortComment, nil
-}
+//// SelectShortCommentById 通过id来搜索短评
+//func SelectShortCommentById(shortCommentId int) (model.ShortComment, error) {
+//	var shortComment model.ShortComment
+//
+//	row := dB.QueryRow("SELECT id, MovieId, Name, Status, StarNum, CommentTime, Likes, Context FROM shortComment WHERE id = ? ", shortCommentId)
+//	if row.Err() != nil {
+//		return shortComment, row.Err()
+//	}
+//
+//	err := row.Scan(&shortComment.Id, &shortComment.MovieId, &shortComment.Name, &shortComment.Status, &shortComment.StarNum, &shortComment.CommentTime, &shortComment.Likes, &shortComment.Context)
+//	if err != nil {
+//		return shortComment, err
+//	}
+//
+//	return shortComment, nil
+//}
 
 // SelectNameBySCId 通过id查找发布用户
 func SelectNameBySCId(SCId int) (string, error) {
@@ -58,6 +58,29 @@ func SelectShortComment(movieId int) ([]model.ShortComment, error) {
 		var shortComment model.ShortComment
 
 		err = rows.Scan(&shortComment.Id, &shortComment.MovieId, &shortComment.Name, &shortComment.Status, &shortComment.StarNum, &shortComment.CommentTime, &shortComment.Likes, &shortComment.Context)
+		if err != nil {
+			return nil, err
+		}
+
+		shortComments = append(shortComments, shortComment)
+	}
+
+	return shortComments, nil
+}
+
+// SelectShortCommentByUsername 查找短评
+func SelectShortCommentByUsername(name string) ([]model.SCPersonal, error) {
+	var shortComments []model.SCPersonal
+	rows, err := dB.Query("SELECT id, MovieName, Name, StarNum, CommentTime, Likes, Context FROM shortComment where Name = ?", name)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var shortComment model.SCPersonal
+
+		err = rows.Scan(&shortComment.Id, &shortComment.MovieName, &shortComment.Name, &shortComment.StarNum, &shortComment.CommentTime, &shortComment.Likes, &shortComment.Context)
 		if err != nil {
 			return nil, err
 		}
