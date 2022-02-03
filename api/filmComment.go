@@ -139,3 +139,16 @@ func mostPopularFC(ctx *gin.Context) {
 
 	tool.RespSuccessfulWithDate(ctx, MPFCs)
 }
+
+func briefFilmCommentsByUsername(ctx *gin.Context) {
+	iUsername, _ := ctx.Get("username")
+	username := iUsername.(string)
+	filmComments, err := service.GetFilmCommentsByUsername(username)
+	if err != nil {
+		fmt.Println("get filmComments err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, filmComments)
+}
