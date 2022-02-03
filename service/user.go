@@ -98,3 +98,7 @@ func ChangeHWURL(name string, URL string) error {
 	err := dao.UpdateHWURL(name, URL)
 	return err
 }
+
+func GetUserMovie(username string) ([]model.UserMovie, error) {
+	return dao.SelectUserMovie(username)
+}
