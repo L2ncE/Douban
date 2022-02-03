@@ -88,3 +88,13 @@ func ChangeWTWURL(name string, URL string) error {
 	err := dao.UpdateWTWURL(name, URL)
 	return err
 }
+
+func ChangeHWId(name string, id int) error {
+	err := dao.UpdateHWId(name, id)
+	return err
+}
+
+func ChangeHWURL(name string, URL string) error {
+	err := dao.UpdateHWURL(name, URL)
+	return err
+}
