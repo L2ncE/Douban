@@ -42,3 +42,8 @@ func FilmCommentLikes(FCId int) error {
 func GetMostPopular() ([]model.MostPopularFC, error) {
 	return dao.SelectMPFC()
 }
+
+// GetFilmCommentsByUsername 得到影评
+func GetFilmCommentsByUsername(name string) ([]model.Personal, error) {
+	return dao.SelectFilmCommentByUsername(name)
+}
