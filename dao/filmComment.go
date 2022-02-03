@@ -68,6 +68,29 @@ func SelectFilmComment(movieId int) ([]model.FilmComment, error) {
 	return filmComments, nil
 }
 
+// SelectFilmCommentByUsername 查找影评
+func SelectFilmCommentByUsername(name string) ([]model.Personal, error) {
+	var filmComments []model.Personal
+	rows, err := dB.Query("SELECT id, MovieName, Name, Context, PostTime, CommentNum, StarNum, Likes FROM filmComment WHERE Name = ?", name)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var filmComment model.Personal
+
+		err = rows.Scan(&filmComment.Id, &filmComment.MovieName, &filmComment.Name, &filmComment.Context, &filmComment.PostTime, &filmComment.CommentNum, &filmComment.StarNum, &filmComment.Likes)
+		if err != nil {
+			return nil, err
+		}
+
+		filmComments = append(filmComments, filmComment)
+	}
+
+	return filmComments, nil
+}
+
 // DeleteFilmComment 删除影评
 func DeleteFilmComment(filmCommentId int) error {
 	sqlStr := `delete from filmComment where Id=?`
