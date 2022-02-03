@@ -126,3 +126,25 @@ func UpdateWTWURL(Name string, URL string) error {
 	}
 	return err
 }
+
+// UpdateHWId 更新看过
+func UpdateHWId(Name string, id int) error {
+	sqlStr := `update user set HaveWatchedId=CONCAT_WS(',', HaveWatchedId, ?) where Name = ?`
+	_, err := dB.Exec(sqlStr, id, Name)
+	if err != nil {
+		fmt.Printf("update failed, err:%v\n", err)
+		return err
+	}
+	return err
+}
+
+// UpdateHWURL 更新看过
+func UpdateHWURL(Name string, URL string) error {
+	sqlStr := `update user set HaveWatchedURL=CONCAT_WS(',', HaveWatchedURL, ?) where Name = ?`
+	_, err := dB.Exec(sqlStr, URL, Name)
+	if err != nil {
+		fmt.Printf("update failed, err:%v\n", err)
+		return err
+	}
+	return err
+}
