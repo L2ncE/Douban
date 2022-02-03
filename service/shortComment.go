@@ -17,7 +17,7 @@ func DeleteShortComment(shortCommentId int) error {
 	return err
 }
 
-// GetShortComment 得到话题
+// GetShortComment 得到短评
 func GetShortComment(movieId int) ([]model.ShortComment, error) {
 	return dao.SelectShortComment(movieId)
 }
@@ -31,4 +31,9 @@ func GetNameBySCId(SCId int) (string, error) {
 func ShortCommentLikes(SCId int) error {
 	err := dao.ShortCommentLikes(SCId)
 	return err
+}
+
+// GetShortCommentByUsername 得到短评
+func GetShortCommentByUsername(name string) ([]model.SCPersonal, error) {
+	return dao.SelectShortCommentByUsername(name)
 }
