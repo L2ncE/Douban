@@ -23,7 +23,8 @@ func InitEngine() {
 		movieGroup.GET("/:movie_id", movieDetail) //电影页
 		{
 			movieGroup.Use(JWTAuth)
-			movieGroup.GET("/wtw/:movie_id", WTW) //想看}
+			movieGroup.GET("/wtw/:movie_id", WTW) //想看
+			movieGroup.GET("/hw/:movie_id", HW)   //看过
 		}
 
 		celebrityGroup := engine.Group("/celebrity")
