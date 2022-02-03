@@ -32,10 +32,10 @@ func InitEngine() {
 	userGroup := engine.Group("/user")
 	userGroup.Use(CORS())
 	{
-		userGroup.Use(JWTAuth)                                    //需要token
-		userGroup.POST("/password", changePassword)               //修改密码
-		userGroup.POST("/introduction", changeSI)                 //修改自我介绍
-		userGroup.GET("/user", user, briefFilmCommentsByUsername) //查看个人页面
+		userGroup.Use(JWTAuth)                                                                 //需要token
+		userGroup.POST("/password", changePassword)                                            //修改密码
+		userGroup.POST("/introduction", changeSI)                                              //修改自我介绍
+		userGroup.GET("/user", user, briefFilmCommentsByUsername, briefShortCommentByUsername) //查看个人页面
 	}
 
 	topicGroup := engine.Group("/topic")

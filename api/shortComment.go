@@ -23,6 +23,19 @@ func briefShortComment(ctx *gin.Context) {
 	tool.RespSuccessfulWithDate(ctx, shortComments)
 }
 
+func briefShortCommentByUsername(ctx *gin.Context) {
+	iUsername, _ := ctx.Get("username")
+	username := iUsername.(string)
+	shortComments, err := service.GetShortCommentByUsername(username)
+	if err != nil {
+		fmt.Println("get shortComments err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, shortComments)
+}
+
 // addShortComment 添加短评
 func addShortComment(ctx *gin.Context) {
 	iUsername, _ := ctx.Get("username") //得到用户名
