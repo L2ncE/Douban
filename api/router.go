@@ -39,8 +39,10 @@ func InitEngine() {
 			userGroup.Use(JWTAuth)                      //需要token
 			userGroup.POST("/password", changePassword) //修改密码
 			userGroup.POST("/introduction", changeSI)   //修改自我介绍
-			userGroup.GET("/user1", user, userMovie)    //查看个人页面
-			userGroup.GET("/user2", briefFilmCommentsByUsername, briefShortCommentByUsername)
+			userGroup.GET("/user1", user)               //查看个人页面
+			userGroup.GET("/user2", userMovie)
+			userGroup.GET("/user3", briefFilmCommentsByUsername)
+			userGroup.GET("/user4", briefShortCommentByUsername)
 		}
 
 		topicGroup := engine.Group("/topic")
