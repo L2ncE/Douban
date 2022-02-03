@@ -78,3 +78,13 @@ func ChangeSI(username, newSI string) error {
 func GetUser(username string) ([]model.User2, error) {
 	return dao.SelectUser(username)
 }
+
+func ChangeWTWId(name string, id int) error {
+	err := dao.UpdateWTWId(name, id)
+	return err
+}
+
+func ChangeWTWURL(name string, URL string) error {
+	err := dao.UpdateWTWURL(name, URL)
+	return err
+}

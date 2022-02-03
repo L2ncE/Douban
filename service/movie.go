@@ -21,3 +21,8 @@ func GetMovies2() ([]model.MovieBrief, error) {
 func GetMovies3() ([]model.MovieBrief, error) {
 	return dao.SelectMovie3()
 }
+
+// GetURLById 通过id得到URL
+func GetURLById(Id int) string {
+	return dao.SelectURLById(Id)
+}
