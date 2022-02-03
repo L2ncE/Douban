@@ -16,3 +16,10 @@ type User2 struct {
 	SelfIntroduction string
 	RegisterTime     time.Time
 }
+
+type UserMovie struct {
+	WantToWatchId  string
+	WantToWatchURL string
+	HaveWatchedId  string
+	HaveWatchedURL string
+}
