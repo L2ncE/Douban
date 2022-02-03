@@ -36,8 +36,8 @@ func SelectUserByUsername(Name string) (model.User, error) {
 // Insert 注册时插入数据
 func Insert(user model.User) error {
 
-	sqlStr := "insert into user(Name,Password,Question,Answer)values (?,?,?,?)"
-	_, err := dB.Exec(sqlStr, user.Name, user.Password, user.Question, user.Answer)
+	sqlStr := "insert into user(Name,Password,Question,Answer,RegisterTime)values (?,?,?,?,?)"
+	_, err := dB.Exec(sqlStr, user.Name, user.Password, user.Question, user.Answer, user.RegisterTime)
 	if err != nil {
 		fmt.Printf("insert failed, err:%v\n", err)
 		return err
@@ -85,7 +85,7 @@ func UpdateSI(Name string, newSelfIntroduction string) error {
 
 func SelectUser(username string) ([]model.User2, error) {
 	var users []model.User2
-	rows, err := dB.Query("SELECT id, Name, SelfIntroduction FROM user WHERE Name = ?", username)
+	rows, err := dB.Query("SELECT SelfIntroduction,RegisterTime FROM user WHERE Name = ?", username)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func SelectUser(username string) ([]model.User2, error) {
 	for rows.Next() {
 		var user model.User2
 
-		err = rows.Scan(&user.Id, &user.Name, &user.SelfIntroduction)
+		err = rows.Scan(&user.SelfIntroduction, &user.RegisterTime)
 		if err != nil {
 			return nil, err
 		}
