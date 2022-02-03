@@ -205,3 +205,16 @@ func user(ctx *gin.Context) {
 
 	tool.RespSuccessfulWithDate(ctx, user)
 }
+
+func userMovie(ctx *gin.Context) {
+	iUsername, _ := ctx.Get("username")
+	username := iUsername.(string)
+	user, err := service.GetUserMovie(username)
+	if err != nil {
+		fmt.Println("get user err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, user)
+}
