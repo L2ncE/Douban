@@ -148,3 +148,25 @@ func UpdateHWURL(Name string, URL string) error {
 	}
 	return err
 }
+
+func SelectUserMovie(username string) ([]model.UserMovie, error) {
+	var users []model.UserMovie
+	rows, err := dB.Query("SELECT WantToWatchId, WantToWatchURL, HaveWatchedId, HaveWatchedURL FROM user WHERE Name = ?", username)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var user model.UserMovie
+
+		err = rows.Scan(&user.WantToWatchId, &user.WantToWatchURL, &user.HaveWatchedId, &user.HaveWatchedURL)
+		if err != nil {
+			return nil, err
+		}
+
+		users = append(users, user)
+	}
+
+	return users, nil
+}
