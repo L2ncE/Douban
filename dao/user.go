@@ -104,3 +104,25 @@ func SelectUser(username string) ([]model.User2, error) {
 
 	return users, nil
 }
+
+// UpdateWTWId 更新想看
+func UpdateWTWId(Name string, id int) error {
+	sqlStr := `update user set WantToWatchId=CONCAT_WS(',', WantToWatchId, ?) where Name = ?`
+	_, err := dB.Exec(sqlStr, id, Name)
+	if err != nil {
+		fmt.Printf("update failed, err:%v\n", err)
+		return err
+	}
+	return err
+}
+
+// UpdateWTWURL 更新想看
+func UpdateWTWURL(Name string, URL string) error {
+	sqlStr := `update user set WantToWatchURL=CONCAT_WS(',', WantToWatchURL, ?) where Name = ?`
+	_, err := dB.Exec(sqlStr, URL, Name)
+	if err != nil {
+		fmt.Printf("update failed, err:%v\n", err)
+		return err
+	}
+	return err
+}

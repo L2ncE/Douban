@@ -87,3 +87,20 @@ func SelectMovie3() ([]model.MovieBrief, error) {
 
 	return movies, nil
 }
+
+// SelectURLById 通过id查找URL
+func SelectURLById(movieId int) string {
+	var movie model.Movie
+
+	row := dB.QueryRow("SELECT URL FROM movie WHERE id = ? ", movieId)
+	if row.Err() != nil {
+		return movie.URL
+	}
+
+	err := row.Scan(&movie.URL)
+	if err != nil {
+		return movie.URL
+	}
+
+	return movie.URL
+}
