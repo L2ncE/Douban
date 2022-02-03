@@ -1,6 +1,8 @@
 package model
 
-import "time"
+import (
+	"time"
+)
 
 type ShortComment struct {
 	Id          int       `json:"id"`
@@ -11,4 +13,14 @@ type ShortComment struct {
 	CommentTime time.Time `json:"CommentTime"`
 	Likes       int       `json:"Likes"`
 	Context     string    `json:"Context"`
+}
+
+type SCPersonal struct {
+	Id          int
+	Name        string
+	MovieName   string
+	StarNum     int
+	Context     string
+	CommentTime time.Time
+	Likes       int
 }
