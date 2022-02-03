@@ -95,10 +95,11 @@ func register(ctx *gin.Context) {
 		if l1 <= 8 && l1 >= 1 { //强制规定用户名长度小于8位大于1位
 			if l2 <= 16 && l2 >= 6 { //强制规定密码小于16位大于6位
 				user := model.User{
-					Name:     username,
-					Password: password,
-					Question: question,
-					Answer:   answer,
+					Name:         username,
+					Password:     password,
+					Question:     question,
+					Answer:       answer,
+					RegisterTime: time.Now(),
 				}
 
 				flag, err := service.IsRepeatUsername(username)
