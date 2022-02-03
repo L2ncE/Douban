@@ -21,6 +21,7 @@ func InitEngine() {
 	movieGroup.Use(CORS())
 	{
 		movieGroup.GET("/:movie_id", movieDetail) //电影页
+		movieGroup.GET("/wtw/:movie_id", WTW)     //想看
 	}
 
 	celebrityGroup := engine.Group("/celebrity")
@@ -32,10 +33,11 @@ func InitEngine() {
 	userGroup := engine.Group("/user")
 	userGroup.Use(CORS())
 	{
-		userGroup.Use(JWTAuth)                                                                 //需要token
-		userGroup.POST("/password", changePassword)                                            //修改密码
-		userGroup.POST("/introduction", changeSI)                                              //修改自我介绍
-		userGroup.GET("/user", user, briefFilmCommentsByUsername, briefShortCommentByUsername) //查看个人页面
+		userGroup.Use(JWTAuth)                      //需要token
+		userGroup.POST("/password", changePassword) //修改密码
+		userGroup.POST("/introduction", changeSI)   //修改自我介绍
+		userGroup.GET("/user1", user)               //查看个人页面
+		userGroup.GET("/user2", briefFilmCommentsByUsername, briefShortCommentByUsername)
 	}
 
 	topicGroup := engine.Group("/topic")

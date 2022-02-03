@@ -61,3 +61,25 @@ func briefMovies3(ctx *gin.Context) {
 
 	tool.RespSuccessfulWithDate(ctx, movies)
 }
+
+func WTW(ctx *gin.Context) {
+	//iUsername, _ := ctx.Get("username")
+	username := "小袁"
+	movieIdString := ctx.Param("movie_id") //输入电影id
+	movieId, err := strconv.Atoi(movieIdString)
+	URL := service.GetURLById(movieId)
+	err = service.ChangeWTWId(username, movieId)
+	if err != nil {
+		fmt.Println("change  err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+	err2 := service.ChangeWTWURL(username, URL)
+	if err2 != nil {
+		fmt.Println("change  err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessful(ctx)
+}
