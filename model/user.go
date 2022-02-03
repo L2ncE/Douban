@@ -1,5 +1,7 @@
 package model
 
+import "time"
+
 type User struct {
 	Id               int
 	Name             string
@@ -7,10 +9,10 @@ type User struct {
 	Question         string
 	Answer           string
 	SelfIntroduction string
+	RegisterTime     time.Time
 }
 
 type User2 struct {
-	Id               int
-	Name             string
 	SelfIntroduction string
+	RegisterTime     time.Time
 }
