@@ -4,7 +4,7 @@ import "douban/model"
 
 func SelectVideo1() ([]model.Video1, error) {
 	var videos []model.Video1
-	rows, err := dB.Query("SELECT id, title, context, url FROM video WHERE Id BETWEEN 1 AND 3")
+	rows, err := dB.Query("SELECT id, title, context, url FROM video WHERE Id BETWEEN 1 AND 9")
 	if err != nil {
 		return nil, err
 	}
