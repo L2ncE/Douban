@@ -107,7 +107,29 @@ func HW(ctx *gin.Context) {
 func rank1(ctx *gin.Context) {
 	movie, err := service.GetMovie()
 	if err != nil {
-		fmt.Println("get movie by id err: ", err)
+		fmt.Println("get movie err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, movie)
+}
+
+func rank2(ctx *gin.Context) {
+	movie, err := service.GetMovieRank1()
+	if err != nil {
+		fmt.Println("get movie err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, movie)
+}
+
+func rank250(ctx *gin.Context) {
+	movie, err := service.GetMovieRank250()
+	if err != nil {
+		fmt.Println("get movie err: ", err)
 		tool.RespInternalError(ctx)
 		return
 	}

@@ -19,7 +19,9 @@ func InitEngine() {
 	engine.GET("/recommend", briefVideo)      //推荐页
 	engine.GET("/mostpopular", mostPopularFC) //最受欢迎影评
 
-	engine.GET("/rank1", rank1) //排行榜
+	engine.GET("/rank1", rank1)   //排行榜
+	engine.GET("/rank2", rank2)   //排行榜
+	engine.GET("/rank3", rank250) //排行榜
 
 	movieGroup := engine.Group("/movie")
 	movieGroup.Use(CORS())
