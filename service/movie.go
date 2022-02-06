@@ -31,3 +31,13 @@ func GetURLById(Id int) string {
 func GetMovie() ([]model.Rank1, error) {
 	return dao.SelectMovie()
 }
+
+// GetMovieRank1 得到电影排行
+func GetMovieRank1() ([]model.Rank2, error) {
+	return dao.SelectMovieRank1()
+}
+
+// GetMovieRank250 得到电影排行
+func GetMovieRank250() ([]model.Rank250, error) {
+	return dao.SelectMovieRank250()
+}
