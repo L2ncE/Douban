@@ -68,12 +68,16 @@ func addFilmComment(ctx *gin.Context) {
 	context := ctx.PostForm("context")
 	starNumString := ctx.PostForm("star_num")
 	starNum, _ := strconv.Atoi(starNumString)
+	MovieName, err := service.GetMNById(movieId)
+	URL, err := service.GetURLByMId(movieId)
 	filmComment := model.FilmComment{
-		MovieId:  movieId,
-		Context:  context,
-		Name:     name,
-		StarNum:  starNum,
-		PostTime: time.Now(),
+		MovieId:   movieId,
+		Context:   context,
+		Name:      name,
+		StarNum:   starNum,
+		PostTime:  time.Now(),
+		MovieName: MovieName,
+		URL:       URL,
 	}
 
 	err = service.AddFilmComment(filmComment)
