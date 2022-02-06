@@ -30,3 +30,14 @@ type MovieBrief struct {
 	Name string
 	URL  string
 }
+
+type Rank1 struct {
+	Name        string
+	Year        string
+	Starring    string
+	Country     string
+	StarNum     int
+	Score       string
+	HaveWatched string
+	URL         string
+}
