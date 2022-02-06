@@ -7,7 +7,7 @@ import (
 
 // InsertFilmComment 发布影评
 func InsertFilmComment(filmComment model.FilmComment) error {
-	_, err := dB.Exec("INSERT INTO filmComment(MovieId, Name, Context, PostTime, StarNum) "+"values(?, ?, ?, ?, ?);", filmComment.MovieId, filmComment.Name, filmComment.Context, filmComment.PostTime, filmComment.StarNum)
+	_, err := dB.Exec("INSERT INTO filmComment(MovieId, Name, Context, PostTime, StarNum, MovieName, URL) "+"values(?, ?, ?, ?, ?, ?, ?);", filmComment.MovieId, filmComment.Name, filmComment.Context, filmComment.PostTime, filmComment.StarNum, filmComment.MovieName, filmComment.URL)
 	return err
 }
 
@@ -71,7 +71,7 @@ func SelectFilmComment(movieId int) ([]model.FilmComment, error) {
 // SelectFilmCommentByUsername 查找影评
 func SelectFilmCommentByUsername(name string) ([]model.Personal, error) {
 	var filmComments []model.Personal
-	rows, err := dB.Query("SELECT id, MovieName, Name, Context, PostTime, CommentNum, StarNum, Likes FROM filmComment WHERE Name = ?", name)
+	rows, err := dB.Query("SELECT id, MovieName, Name, Context, PostTime, CommentNum, StarNum, Likes, URL FROM filmComment WHERE Name = ?", name)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func SelectFilmCommentByUsername(name string) ([]model.Personal, error) {
 	for rows.Next() {
 		var filmComment model.Personal
 
-		err = rows.Scan(&filmComment.Id, &filmComment.MovieName, &filmComment.Name, &filmComment.Context, &filmComment.PostTime, &filmComment.CommentNum, &filmComment.StarNum, &filmComment.Likes)
+		err = rows.Scan(&filmComment.Id, &filmComment.MovieName, &filmComment.Name, &filmComment.Context, &filmComment.PostTime, &filmComment.CommentNum, &filmComment.StarNum, &filmComment.Likes, &filmComment.URL)
 		if err != nil {
 			return nil, err
 		}
@@ -133,4 +133,38 @@ func SelectMPFC() ([]model.MostPopularFC, error) {
 	}
 
 	return MPFCs, nil
+}
+
+// SelectMNById 通过id查找
+func SelectMNById(id int) (string, error) {
+	var filmComment model.FilmComment
+
+	row := dB.QueryRow("SELECT MovieName FROM filmComment WHERE id = ? ", id)
+	if row.Err() != nil {
+		return filmComment.MovieName, row.Err()
+	}
+
+	err := row.Scan(&filmComment.MovieName)
+	if err != nil {
+		return filmComment.MovieName, err
+	}
+
+	return filmComment.MovieName, nil
+}
+
+// SelectURLByMId 通过id查找
+func SelectURLByMId(id int) (string, error) {
+	var filmComment model.FilmComment
+
+	row := dB.QueryRow("SELECT URL FROM filmComment WHERE id = ? ", id)
+	if row.Err() != nil {
+		return filmComment.URL, row.Err()
+	}
+
+	err := row.Scan(&filmComment.URL)
+	if err != nil {
+		return filmComment.URL, err
+	}
+
+	return filmComment.URL, nil
 }
