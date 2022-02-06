@@ -47,3 +47,13 @@ func GetMostPopular() ([]model.MostPopularFC, error) {
 func GetFilmCommentsByUsername(name string) ([]model.Personal, error) {
 	return dao.SelectFilmCommentByUsername(name)
 }
+
+// GetMNById 通过FCid得到影评
+func GetMNById(Id int) (string, error) {
+	return dao.SelectMNById(Id)
+}
+
+// GetURLByMId 通过FCid得到影评
+func GetURLByMId(Id int) (string, error) {
+	return dao.SelectURLByMId(Id)
+}
