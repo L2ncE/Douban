@@ -104,3 +104,24 @@ func SelectURLById(movieId int) string {
 
 	return movie.URL
 }
+
+// SelectMovie 搜索电影
+func SelectMovie() ([]model.Rank1, error) {
+	var movies []model.Rank1
+
+	rows, err := dB.Query("SELECT name, year, starring, country, starnum, score, havewatched, URL FROM movie WHERE id BETWEEN 1 AND 10")
+
+	defer rows.Close()
+	for rows.Next() {
+		var movie model.Rank1
+
+		err = rows.Scan(&movie.Name, &movie.Year, &movie.Starring, &movie.Country, &movie.StarNum, &movie.Score, &movie.HaveWatched, &movie.URL)
+		if err != nil {
+			return nil, err
+		}
+
+		movies = append(movies, movie)
+	}
+
+	return movies, nil
+}
