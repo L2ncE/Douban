@@ -103,3 +103,14 @@ func HW(ctx *gin.Context) {
 	}
 	tool.RespSuccessful(ctx)
 }
+
+func rank1(ctx *gin.Context) {
+	movie, err := service.GetMovie()
+	if err != nil {
+		fmt.Println("get movie by id err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, movie)
+}
