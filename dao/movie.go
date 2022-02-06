@@ -125,3 +125,45 @@ func SelectMovie() ([]model.Rank1, error) {
 
 	return movies, nil
 }
+
+// SelectMovieRank1 搜索电影
+func SelectMovieRank1() ([]model.Rank2, error) {
+	var movies []model.Rank2
+
+	rows, err := dB.Query("SELECT id, name FROM movie WHERE id BETWEEN 1 AND 10")
+
+	defer rows.Close()
+	for rows.Next() {
+		var movie model.Rank2
+
+		err = rows.Scan(&movie.Id, &movie.Name)
+		if err != nil {
+			return nil, err
+		}
+
+		movies = append(movies, movie)
+	}
+
+	return movies, nil
+}
+
+// SelectMovieRank250 搜索电影
+func SelectMovieRank250() ([]model.Rank250, error) {
+	var movies []model.Rank250
+
+	rows, err := dB.Query("SELECT name, URL FROM movie WHERE id BETWEEN 136 AND 147")
+
+	defer rows.Close()
+	for rows.Next() {
+		var movie model.Rank250
+
+		err = rows.Scan(&movie.Name, &movie.URL)
+		if err != nil {
+			return nil, err
+		}
+
+		movies = append(movies, movie)
+	}
+
+	return movies, nil
+}
