@@ -11,6 +11,8 @@ type FilmComment struct {
 	CommentNum int       `json:"comment_num"`
 	StarNum    int       `json:"star_num"`
 	Likes      int       `json:"likes"`
+	MovieName  string    `json:"movie_name"`
+	URL        string    `json:"URL"`
 }
 
 type FilmCommentDetail struct {
@@ -36,4 +38,5 @@ type Personal struct {
 	Likes      int
 	CommentNum int
 	PostTime   time.Time
+	URL        string
 }
