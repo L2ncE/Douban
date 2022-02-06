@@ -41,3 +41,13 @@ type Rank1 struct {
 	HaveWatched string
 	URL         string
 }
+
+type Rank2 struct {
+	Id   int
+	Name string
+}
+
+type Rank250 struct {
+	Name string
+	URL  string
+}
